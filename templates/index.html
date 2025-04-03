@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Taxi Fare Predictor</title>
+    <style>
+        body {
+            font-family: 'Copperplate', 'Papyrus', fantasy;
+            background: linear-gradient(to right, #1a001a, #330066);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            width: 400px;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+            font-weight: bold;
+        }
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        label {
+            font-weight: bold;
+            color: #555;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: all 0.3s ease-in-out;
+            font-family: 'Copperplate', 'Papyrus', fantasy;
+        }
+        input:focus {
+            border-color: #8e44ad;
+            box-shadow: 0 0 5px rgba(142, 68, 173, 0.5);
+            outline: none;
+        }
+        button {
+            background: black;
+            color: white;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            border-radius: 6px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Copperplate', 'Papyrus', fantasy;
+        }
+        button:hover {
+            background: #222;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f8f8;
+            border-radius: 6px;
+            font-size: 18px;
+            color: #333;
+            font-weight: bold;
+            font-family: 'Copperplate', 'Papyrus', fantasy;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚖 Taxi Fare Prediction</h1>
+        <form action="/predict" method="POST">
+            <div class="form-group">
+                <label>Pickup Datetime (YYYY-MM-DD HH:MM:SS):</label>
+                <input type="text" name="pickup_datetime" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Pickup Longitude:</label>
+                <input type="number" step="any" name="pickup_longitude" required>
+            </div>
+
+            <div class="form-group">
+                <label>Pickup Latitude:</label>
+                <input type="number" step="any" name="pickup_latitude" required>
+            </div>
+
+            <div class="form-group">
+                <label>Dropoff Longitude:</label>
+                <input type="number" step="any" name="dropoff_longitude" required>
+            </div>
+
+            <div class="form-group">
+                <label>Dropoff Latitude:</label>
+                <input type="number" step="any" name="dropoff_latitude" required>
+            </div>
+
+            <div class="form-group">
+                <label>Passenger Count:</label>
+                <input type="number" name="passenger_count" min="1" max="8" required>
+            </div>
+
+            <button type="submit">🚕 Predict Fare</button>
+        </form>
+
+        {% if prediction %}
+        <div class="result">
+            <h3>Predicted Fare: ${{ "%.2f"|format(prediction) }}</h3>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
